@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -35,6 +37,10 @@ public class User {
     }
 
     public User() {
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {
@@ -75,12 +81,19 @@ public class User {
                 '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name)
+                && Objects.equals(country, user.country)
+                && Objects.equals(email, user.email);
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, country, email);
     }
 }
 

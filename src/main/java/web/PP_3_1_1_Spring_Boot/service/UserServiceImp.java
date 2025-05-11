@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImp implements UserService {
     public UserDao userDao;
 
@@ -26,12 +27,10 @@ public class UserServiceImp implements UserService {
 
     }
 
-    @Transactional
     @Override
     public User findById(Long id) {
         return userDao.findById(id);
     }
-
 
     @Transactional
     @Override
@@ -46,7 +45,6 @@ public class UserServiceImp implements UserService {
 
     }
 
-    @Transactional
     @Override
     public List<User> findAll() {
         return userDao.findAll();
